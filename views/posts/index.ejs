@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple CRUD</title>
+    <title>Simple CRUD - Home</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -41,28 +41,28 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" class="text-center">#</th>
                     <th scope="col">Title</th>
                     <th scope="col">Content</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% if (data.length) { %> <% for(var i = 0; i < data.length;
                   i++) { %>
                   <tr>
-                    <th scope="row" class="text-center"><% (i+1) %></th>
-                    <td><% data[i].title %></td>
-                    <td><% data[i].content %></td>
+                    <th scope="row" class="text-center"><%= (i+1) %></th>
+                    <td><%= data[i].title %></td>
+                    <td><%= data[i].content %></td>
                     <td class="text-center">
                       <a
-                        href="posts/edit/<%data[i].id%>"
+                        href="posts/edit/<%=data[i].id%>"
                         class="btn btn-sm btn-warning"
                         >Edit</a
                       >
                       <a
-                        onclick="return alert('Are you sure?');"
-                        href="/posts/delete/<%data[i].id%>"
+                        onclick="return confirm('Are you sure?');"
+                        href="/posts/delete/<%=data[i].id%>"
                         class="btn btn-sm btn-danger"
                         >Delete</a
                       >

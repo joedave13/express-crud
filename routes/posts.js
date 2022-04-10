@@ -21,4 +21,62 @@ router.get('/', function (req, res, next) {
   );
 });
 
+router.get('/create', function (req, res, next) {
+  res.render('posts/create', {
+    title: '',
+    content: '',
+  });
+});
+
+router.post('/store', function (req, res, next) {
+  let title = req.body.title;
+  let content = req.body.content;
+  let errors = false;
+
+  if (title.length === 0) {
+    errors = true;
+
+    req.flash('error', 'Title is required!');
+    res.render('posts/create', {
+      title: title,
+      content: content,
+    });
+  }
+
+  if (content.length === 0) {
+    errors = true;
+
+    req.flash('error', 'Content is required!');
+    res.render('posts/create', {
+      title: title,
+      content: content,
+    });
+  }
+
+  if (!errors) {
+    let formData = {
+      title: title,
+      content: content,
+    };
+
+    connection.query(
+      'INSERT INTO posts SET ?',
+      formData,
+      function (err, result) {
+        if (err) {
+          req.flash('error', err);
+
+          res.render('posts/create', {
+            title: formData.title,
+            content: formData.content,
+          });
+        } else {
+          req.flash('success', 'Post created successfully!');
+          res.redirect('/posts');
+        }
+      }
+    );
+  }
+});
+
 module.exports = router;
